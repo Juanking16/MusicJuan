@@ -19,16 +19,21 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
     
+    - name: Clear Gradle Cache
+      run: rm -rf ~/.gradle/caches ~/.gradle/wrapper
+    
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
     
-    - name: Build with Gradle directly
-      run: gradle clean assembleDebug
-      env:
-        GRADLE_OPTS: "-Xmx2048m"
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v3
+    
+    - name: Build APK
+      run: ./gradlew clean assembleDebug
     
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: app-debug
         path: app/build/outputs/apk/debug/app-debug.apk
+        
