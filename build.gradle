@@ -1,10 +1,8 @@
-# To learn more about the properties you can use, please visit the documentation at
-# https://docs.gradle.org/current/userguide/build_environment.html#accessing_system_properties
-# and https://docs.gradle.org/current/userguide/plugins.dsl.html#sec:plugins_block
-#
-# IMPORTANT: Do not place your application dependencies here; they belong
-# in individual module build.gradle files
-
 plugins {
-    id 'com.android.application' version '8.1.2' apply false
+    id 'com.android.application' version '8.1.0' apply false
+    id 'com.android.library' version '8.1.0' apply false
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
