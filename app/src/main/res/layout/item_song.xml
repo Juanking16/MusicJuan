@@ -3,20 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="12dp"
-    android:background="?attr/selectableItemBackground">
+    android:padding="8dp"
+    android:background="?attr/selectableItemBackground"
+    android:baselineAligned="false">
 
-    <ImageView
-        android:id="@+id/albumArtImageView"
+    <FrameLayout
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:src="@drawable/ic_launcher_foreground"
-        android:scaleType="centerCrop"
-        android:layout_marginEnd="12dp" />
+        android:layout_marginEnd="12dp">
+
+        <ImageView
+            android:id="@+id/albumArtImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_launcher_foreground"
+            android:scaleType="centerCrop"
+            android:background="@color/purple_200" />
+
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
         android:gravity="center_vertical">
@@ -26,25 +34,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:maxLines="1"
-            android:ellipsize="end" />
+            android:ellipsize="end"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/artistTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:maxLines="1"
-            android:ellipsize="end" />
+            android:ellipsize="end"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/albumTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="11sp"
             android:maxLines="1"
-            android:ellipsize="end" />
+            android:ellipsize="end"
+            android:textColor="@color/purple_700" />
 
     </LinearLayout>
 
