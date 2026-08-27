@@ -36,7 +36,7 @@ while [ -h "$PRG" ] ; do
     fi
 done
 SAVED="`pwd`"
-cd "`dirname \"$PRG\""`/" >/dev/null
+cd "`dirname \"$PRG\""`" >/dev/null
 APP_HOME="`pwd -P`"
 cd "$SAVED" >/dev/null
 
@@ -44,21 +44,21 @@ APP_NAME="Gradle"
 APP_BASE_NAME=`basename "$0"`
 
 # Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
-DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
+DEFAULT_JVM_OPTS='" -Xmx64m" "-Xms64m"'
 
 # Use the maximum available, or set MAX_FD != unlimited.
 MAX_FD="maximum"
 
 warn () {
     echo "$*"
-}
+} >&2
 
 die () {
     echo
     echo "$*"
     echo
     exit 1
-}
+} >&2
 
 # OS specific support (must be 'true' or 'false').
 cygwin=false
@@ -81,6 +81,7 @@ case "`uname`" in
 esac
 
 CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
+
 
 # Determine the Java command to use to start the JVM.
 if [ -n "$JAVA_HOME" ] ; then
@@ -129,7 +130,6 @@ fi
 if [ "$cygwin" = "true" -o "$msys" = "true" ] ; then
     APP_HOME=`cygpath --path --mixed "$APP_HOME"`
     CLASSPATH=`cygpath --path --mixed "$CLASSPATH"`
-
     JAVACMD=`cygpath --unix "$JAVACMD"`
 
     # Now convert the arguments - kludge to limit ourselves to /bin/sh
@@ -149,7 +149,7 @@ if [ "$cygwin" = "true" -o "$msys" = "true" ] ; then
                 arg="$new_arg"
                 ;;
         esac
-        if expr "$arg" : '.*\.jar$' > /dev/null; then
+        if expr "$arg" : '.*\\.jar$' > /dev/null; then
             new_classpath="$new_classpath:$arg"
         elif expr "$arg" : '-D.*=.*' > /dev/null; then
             new_jvm_opts="$new_jvm_opts $arg"
@@ -171,14 +171,9 @@ if [ "$cygwin" = "true" -o "$msys" = "true" ] ; then
         eval "set -- $APP_ARGS"
     }
     save "$@"
-
-    # When using the Gradle daemon, you can find more details about this:
-    #   - at https://gradle.org/when-gradle-stops/
-    #   - in the Gradle FAQ at https://gradle.org/faq/#continuous-builds
-
+    eval execeval \"$JAVACMD\" $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS \"-Dorg.gradle.appname=$APP_BASE_NAME\" -classpath \"$CLASSPATH\" org.gradle.wrapper.GradleWrapperMain "$@"
 else
     APP_ARGS=`expr "X$save " : 'X\(.*\) ' | tr -d '\n'`
-    eval "set -- $APP_ARGS"
+    eval set -- $APP_ARGS
+    exec "$JAVACMD" $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS \"-Dorg.gradle.appname=$APP_BASE_NAME\" -classpath \"$CLASSPATH\" org.gradle.wrapper.GradleWrapperMain "$@"
 fi
-
-exec "$JAVACMD" "$@"
